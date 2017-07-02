@@ -1,0 +1,182 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillViewport="true"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/placeHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.teamtreehouse.stormy.ui.MainActivity">
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:background="@drawable/bg_gradient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            tools:context=".MainActivity">
+
+            <ImageView
+                android:id="@+id/refreshImageView"
+                android:src="@drawable/refresh"
+                android:contentDescription="@string/refresh_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/refreshImageView"
+                android:layout_alignTop="@+id/refreshImageView"
+                android:layout_below="@+id/refreshImageView"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/locationLabel"
+                android:text="@string/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/timeLabel"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"/>
+
+            <ImageView
+                android:id="@+id/iconImageView"
+                android:src="@drawable/clear_day"
+                android:contentDescription="@string/current_weather_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/locationLabel"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/timeLabel"
+                android:text="@string/dots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/temperatureLabel"
+                android:layout_centerHorizontal="true"
+                android:textColor="#80ffffff"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/temperatureLabel"
+                android:text="@string/dashes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
+                android:textSize="150sp"/>
+
+            <ImageView
+                android:id="@+id/degreeImageView"
+                android:src="@drawable/degree"
+                android:contentDescription="@string/degree_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/temperatureLabel"
+                android:layout_marginTop="50dp"
+                android:layout_toEndOf="@+id/temperatureLabel"
+                android:layout_toRightOf="@+id/temperatureLabel"
+                android:background="@android:color/transparent"/>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:baselineAligned="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/temperatureLabel"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/humidityLabel"
+                        android:text="@string/humidity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textColor="#80ffffff"/>
+
+                    <TextView
+                        android:id="@+id/humidityValue"
+                        android:text="@string/dashes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/precipLabel"
+                        android:text="@string/rain_snow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textColor="#80ffffff"/>
+
+                    <TextView
+                        android:id="@+id/precipValue"
+                        android:text="@string/dashes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/summaryLabel"
+                android:text="@string/getting_current_weather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
+
+            <Button
+                android:id="@+id/detailsButton"
+                android:text="@string/details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#40ffffff"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/summaryLabel"/>
+
+        </RelativeLayout>
+    </FrameLayout>
+</ScrollView>
