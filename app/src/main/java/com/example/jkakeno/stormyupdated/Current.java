@@ -11,7 +11,7 @@ public class Current {
     private long mTime;
     private String mSummary;
     private String mIcon;
-    //Added mTimeZone to use it in getFormattedTime()
+//Added mTimeZone to use it in getFormattedTime()
     private String mTimeZone;
     private double mTemperature;
     private double mHumidity;
@@ -48,7 +48,7 @@ public class Current {
 //Checking the Simple Time format doc indicates the SimpleDateFormat class has available methods to format time
     public String getFormattedTime(){
 //Create a formatter object from the SimpleDateFormat class with the h:mm a format
-//Formating options in this link: https://developer.android.com/reference/java/text/SimpleDateFormat.html
+//Formatting options in this link: https://developer.android.com/reference/java/text/SimpleDateFormat.html
         SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
 //Set the time zone by pushing the time zone from JSON as the parameter; we are setting the value in Main we can use mTimeZone or getTimeZone() as the parameter
 //This converts the long value to a formated time

@@ -20,6 +20,7 @@
     <string name="getting_current_weather">Getting current weather ...</string>
     <string name="details">Details</string>
     <string name="this_week">This Week</string>
+    <string name="week">Week</string>
     <string name="refresh_button">refresh_button</string>
     <string name="current_weather_icon">current_weather_icon</string>
     <string name="degree_image">degree_image</string>

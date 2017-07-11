@@ -31,16 +31,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-//We are using the okhttp library from square as the API to connect to the network and access data from the service
-//The API resides on github and we are accessing it by adding the link compile 'com.squareup.okhttp3:okhttp:3.8.0' to the Gradle build.gradle(Module:app) dependencies
-//okhttp github link: https://github.com/square/okhttp
-//okhttp library methods docs link: https://github.com/square/okhttp/wiki/Recipes
-//Weather API Forecast request: https://darksky.net/dev/docs/forecast
-//Butterknife library is a handy library to bind member variables to field views which uses annotation processing to generate boilerplate code for you.
-//https://github.com/JakeWharton/butterknife
-//Butterknife like our previous library it can be easily included in our project by adding the link   compile 'com.jakewharton:butterknife:8.6.0' to the Gradle build.gradle(Module:app) dependencies
-//Other libraries that makes working with JSON data even easier https://github.com/FasterXML/jackson-databind/   https://github.com/google/gson
-
+//This app uses okhttp library from square as the API to connect to the network and weather API from darksky to access forecast data from the service.
+//The app uses fragments to display data on phone and tablets. It supports landscape and portrait mode.
+//It displays the current, weekly, hourly weather and weather summary for the selected day or hour for a fixed location.
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,27 +62,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//Store the resource identifier in a variable
         isTablet= getResources().getBoolean(R.bool.is_tablet);
-        if (!isTablet) {
-            setContentView(R.layout.activity_main);
-            ButterKnife.bind(this);
-        } else if (isTablet){
-            setContentView(R.layout.activity_main_tablet);
-            ButterKnife.bind(this);
-        }
-
+//Set the initial view
+        setContentView(R.layout.activity_main);
+//Use butter knife to bind the views
+        ButterKnife.bind(this);
+//Set the progress bar visibility to invisible
         mProgressBar.setVisibility(View.INVISIBLE);
+//Set listener to the refresh button
         mRefreshImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//Get forecast when press refresh button
                 getForecast(latitude,longitude);
             }
         });
+//Get forecast for phone and tablet
         if (!isTablet) {
             getForecast(latitude, longitude);
-        } else if (isTablet){
+        } else {
             getForecast(latitude, longitude);
         }
+//Set listener for detail button
         mDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,26 +94,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onDetailsButtonSelected() {
-//Create the follow up fragment
-        ViewPagerFragment viewPagerFragment = new ViewPagerFragment();
-
-//Store daily forecast, hourly forecast, current temp in tags and put the tags value in a bundle
+//Store daily forecast, hourly forecast in tags and put the tags value in a bundle
         Bundle bundle = new Bundle();
         bundle.putParcelableArray(DAYS, mForecast.getDailyForecast());
         bundle.putParcelableArray(HOURS, mForecast.getHourlyForecast());
-//        bundle.putInt(TEMP, mForecast.getCurrent().getTemperature());
-//Send the bundle to view pager fragment
-        viewPagerFragment.setArguments(bundle);
-
-//Replace the place holder with the follow up fragment with what's in the tag
+//Create the fragment manager
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.placeHolder, viewPagerFragment, VIEWPAGER_FRAGMENT);
+//When devise is phone
+        if (!isTablet) {
+//Create the follow up fragment
+            ViewPagerFragment viewPagerFragment = new ViewPagerFragment();
+            viewPagerFragment.setArguments(bundle);
+//Replace the place holder with the follow up fragment with what's in the tag
+            transaction.replace(R.id.placeHolder, viewPagerFragment, VIEWPAGER_FRAGMENT);
+//When devise is tablet
+        } else {
+//Create the follow up fragment
+            DualPanelFragment dualPanelFragment = new DualPanelFragment();
+            dualPanelFragment.setArguments(bundle);
+//Replace the place holder with the follow up fragment with what's in the tag
+            transaction.replace(R.id.placeHolder, dualPanelFragment, VIEWPAGER_FRAGMENT);
+        }
 //Add the initial fragment to the back stack to be able to return with a back button
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 
     private void getForecast(double latitude, double longitude) {
         String  forecastUrl ="https://api.darksky.net/forecast/" + apiKey + "/" +latitude+ "," +longitude;
@@ -214,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         mIconImageView.setImageDrawable(drawable);
    }
 
-//Create a forcast object, set the current, hourly forecast, daily forecast and return the forecast
+//Create a forecast object, set the current, hourly forecast, daily forecast and return the forecast
     private Forecast parseForecastDetails (String jsonData) throws JSONException{
         Forecast forecast = new Forecast();
         forecast.setCurrent(getCurrentDetails(jsonData));

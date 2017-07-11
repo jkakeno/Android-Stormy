@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+//This class creates the view for the follow up fragment to be displayed for phones
 public class ViewPagerFragment extends Fragment{
     @Nullable
     @Override
@@ -48,7 +49,7 @@ public class ViewPagerFragment extends Fragment{
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(ContextCompat.getColorStateList(getContext(), R.color.white));
-
+//Return the fragment view
         return view;
     }
 }
